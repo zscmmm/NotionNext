@@ -44,7 +44,10 @@ const BLOG = {
 
   IMAGE_COMPRESS_WIDTH: process.env.NEXT_PUBLIC_IMAGE_COMPRESS_WIDTH || 500, // 图片压缩宽度默认值，作用于博客封面和文章内容 越小加载图片越快
   IMAGE_ZOOM_IN_WIDTH: process.env.NEXT_PUBLIC_IMAGE_ZOOM_IN_WIDTH || 1200, // 文章图片点击放大后的画质宽度，不代表在网页中的实际展示宽度
-  RANDOM_IMAGE_URL: process.env.NEXT_PUBLIC_RANDOM_IMAGE_URL || '', // 随机图片API,如果未配置下面的关键字，主页封面，头像，文章封面图都会被替换为随机图片
+  RANDOM_IMAGE_URL: process.env.NEXT_PUBLIC_RANDOM_IMAGE_URL || 'https://source.unsplash.com/random/300x400/?blog,scenery,night,desert,sea', 
+  // 个人补充: notion 是有封面的, ,如果封面有, 则会直接返回封面的图片, 且大小就是封面的大小,只不过会被 css 进行裁剪
+  // 如果想要返回适合的图片大小, 需要有工具对原始图片进行压缩或处理成不同的大小(需要技术), 待完善
+  // 随机图片API,如果未配置下面的关键字，主页封面，头像，文章封面图都会被替换为随机图片
   // https://source.unsplash.com/random/?blog,scenery,night,desert,sea // 这里先给一个, 这个没有设置大小, 不知道默认的会不会有大小的限制, 有限制的话,可以加速
   // https://source.unsplash.com/random/600x400/?blog,scenery,night,desert,sea
   RANDOM_IMAGE_REPLACE_TEXT:
@@ -146,7 +149,7 @@ const BLOG = {
 
   // 自定义外部脚本，外部样式
   CUSTOM_EXTERNAL_JS: [''], // e.g. ['http://xx.com/script.js','http://xx.com/script.js']
-  CUSTOM_EXTERNAL_CSS: [''], // e.g. ['http://xx.com/style.css','http://xx.com/style.css']
+  CUSTOM_EXTERNAL_CSS: ['https://at.alicdn.com/t/c/font_4531781_71z9tojhqxe.css'], // e.g. ['http://xx.com/style.css','http://xx.com/style.css']
 
   // 侧栏布局 是否反转(左变右,右变左) 已支持主题: hexo next medium fukasawa example
   LAYOUT_SIDEBAR_REVERSE:
@@ -221,11 +224,11 @@ const BLOG = {
   POST_WAITING_TIME_FOR_404:
     process.env.NEXT_PUBLIC_POST_WAITING_TIME_FOR_404 || '8', // 文章加载超时时间，单位秒；超时后跳转到404页面
 
-  ALGOLIA_APP_ID: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || null, // 在这里查看 https://dashboard.algolia.com/account/api-keys/
-  ALGOLIA_ADMIN_APP_KEY: process.env.ALGOLIA_ADMIN_APP_KEY || null, // 管理后台的KEY，不要暴露在代码中，在这里查看 https://dashboard.algolia.com/account/api-keys/
+  ALGOLIA_APP_ID: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || 'ZMRCVJT3H5', // 在这里查看 https://dashboard.algolia.com/account/api-keys/
+  ALGOLIA_ADMIN_APP_KEY: process.env.ALGOLIA_ADMIN_APP_KEY || 'a585c97bbecb53c3645fec93cefc871c', // 管理后台的KEY，不要暴露在代码中，在这里查看 https://dashboard.algolia.com/account/api-keys/
   ALGOLIA_SEARCH_ONLY_APP_KEY:
-    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_APP_KEY || null, // 客户端搜索用的KEY
-  ALGOLIA_INDEX: process.env.NEXT_PUBLIC_ALGOLIA_INDEX || null, // 在Algolia中创建一个index用作数据库
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_APP_KEY || 'e5304804df3fc904e36b7dc1574eeb25', // 客户端搜索用的KEY
+  ALGOLIA_INDEX: process.env.NEXT_PUBLIC_ALGOLIA_INDEX || 'notion', // 在Algolia中创建一个index用作数据库
   //   ALGOLIA_RECREATE_DATA: process.env.ALGOLIA_RECREATE_DATA || process.env.npm_lifecycle_event === 'build', // 为true时重新构建索引数据; 默认在build时会构建
 
   PREVIEW_CATEGORY_COUNT: 16, // 首页最多展示的分类数量，0为不限制
@@ -278,23 +281,23 @@ const BLOG = {
   DIFY_CHATBOT_BASE_URL: process.env.NEXT_PUBLIC_DIFY_CHATBOT_BASE_URL || '',
   DIFY_CHATBOT_TOKEN: process.env.NEXT_PUBLIC_DIFY_CHATBOT_TOKEN || '',
   // 悬浮挂件
-  WIDGET_PET: process.env.NEXT_PUBLIC_WIDGET_PET || true, // 是否显示宠物挂件
+  WIDGET_PET: process.env.NEXT_PUBLIC_WIDGET_PET || false, // 是否显示宠物挂件
   WIDGET_PET_LINK:
     process.env.NEXT_PUBLIC_WIDGET_PET_LINK ||
     'https://cdn.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json', // 挂件模型地址 @see https://github.com/xiazeyu/live2d-widget-models
   WIDGET_PET_SWITCH_THEME:
-    process.env.NEXT_PUBLIC_WIDGET_PET_SWITCH_THEME || true, // 点击宠物挂件切换博客主题
+    process.env.NEXT_PUBLIC_WIDGET_PET_SWITCH_THEME || false, // 点击宠物挂件切换博客主题
 
   // 音乐播放插件
   MUSIC_PLAYER: process.env.NEXT_PUBLIC_MUSIC_PLAYER || false, // 是否使用音乐播放插件
-  MUSIC_PLAYER_VISIBLE: process.env.NEXT_PUBLIC_MUSIC_PLAYER_VISIBLE || true, // 是否在左下角显示播放和切换，如果使用播放器，打开自动播放再隐藏，就会以类似背景音乐的方式播放，无法取消和暂停
+  MUSIC_PLAYER_VISIBLE: process.env.NEXT_PUBLIC_MUSIC_PLAYER_VISIBLE || false, // 是否在左下角显示播放和切换，如果使用播放器，打开自动播放再隐藏，就会以类似背景音乐的方式播放，无法取消和暂停
   MUSIC_PLAYER_AUTO_PLAY:
-    process.env.NEXT_PUBLIC_MUSIC_PLAYER_AUTO_PLAY || true, // 是否自动播放，不过自动播放时常不生效（移动设备不支持自动播放）
+    process.env.NEXT_PUBLIC_MUSIC_PLAYER_AUTO_PLAY || false, // 是否自动播放，不过自动播放时常不生效（移动设备不支持自动播放）
   MUSIC_PLAYER_LRC_TYPE: process.env.NEXT_PUBLIC_MUSIC_PLAYER_LRC_TYPE || '0', // 歌词显示类型，可选值： 3 | 1 | 0（0：禁用 lrc 歌词，1：lrc 格式的字符串，3：lrc 文件 url）（前提是有配置歌词路径，对 meting 无效）
   MUSIC_PLAYER_CDN_URL:
     process.env.NEXT_PUBLIC_MUSIC_PLAYER_CDN_URL ||
     'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js',
-  MUSIC_PLAYER_ORDER: process.env.NEXT_PUBLIC_MUSIC_PLAYER_ORDER || 'list', // 默认播放方式，顺序 list，随机 random
+  MUSIC_PLAYER_ORDER: process.env.NEXT_PUBLIC_MUSIC_PLAYER_ORDER || 'random', // 默认播放方式，顺序 list，随机 random
   MUSIC_PLAYER_AUDIO_LIST: [
     // 示例音乐列表。除了以下配置外，还可配置歌词，具体配置项看此文档 https://aplayer.js.org/#/zh-Hans/
     {
@@ -401,7 +404,7 @@ const BLOG = {
   COMMENT_VALINE_PLACEHOLDER:
     process.env.NEXT_PUBLIC_VALINE_PLACEHOLDER || '抢个沙发吧~', // 可以搭配后台管理评论 https://github.com/DesertsP/Valine-Admin  便于查看评论，以及邮件通知，垃圾评论过滤等功能
 
-  COMMENT_WALINE_SERVER_URL: 'https://walinenotion.zsccy.top', // Waline 评论系统后端地址
+    COMMENT_WALINE_SERVER_URL: 'https://walinenotion.zsccy.top', // Waline 评论系统后端地址
   COMMENT_WALINE_RECENT: process.env.NEXT_PUBLIC_WALINE_RECENT || false, // 最新评论
 
   // 此评论系统基于WebMention，细节可参考https://webmention.io
