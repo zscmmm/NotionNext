@@ -2,9 +2,10 @@
   1panel-network:
     external: true
 services:
-  mynotionnext:
-    container_name: mynotionnext
-    image: mynotionnext:latest
+  notionnext:
+    container_name: notionnext
+    # image: mynotionnext:latest  #本地构建的镜像
+    image: ccr.ccs.tencentyun.com/zscflarum/notionnext:0.3  #腾讯云镜像
     ports:
       - "3100:3000"
     networks:
