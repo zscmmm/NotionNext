@@ -7,8 +7,6 @@ services:
     image: mynotionnext:latest
     ports:
       - "3100:3000"
-    env_file:
-	    - .env.local
     networks:
       - 1panel-network
     restart: always
