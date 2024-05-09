@@ -5,7 +5,7 @@ services:
   notionnext:
     container_name: notionnext
     # image: mynotionnext:latest  #本地构建的镜像
-    image: ccr.ccs.tencentyun.com/zscflarum/notionnext:0.5  #腾讯云镜像
+    image: ccr.ccs.tencentyun.com/zscflarum/notionnext:0.7
     ports:
       - "3100:3000"
     networks:
@@ -15,9 +15,9 @@ services:
 
 # 笔记
 ## 根据下面的填写对应的镜像id ---> 准备推送到腾讯云镜像仓库
-## sudo docker build -t notionnext:latest . 
+## sudo docker build -t notionnext:0.7 . 
 ## sudo docker images
 ## 
 # sudo docker login ccr.ccs.tencentyun.com --username=1228075512
-# sudo docker tag 79ff9265e2fb ccr.ccs.tencentyun.com/zscflarum/panel-flarum:0.5
-# sudo docker push ccr.ccs.tencentyun.com/zscflarum/panel-flarum:0.5
+# sudo docker tag 29c174001888 ccr.ccs.tencentyun.com/zscflarum/notionnext:0.7
+# sudo docker push ccr.ccs.tencentyun.com/zscflarum/notionnext:0.7
