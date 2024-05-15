@@ -9,27 +9,32 @@ import { siteConfig } from '@/lib/config'
  * @returns
  */
 export default function TouchMeCard() {
-  if (!JSON.parse(siteConfig('HEO_SOCIAL_CARD', null, CONFIG))) {
-    return <></>
-  }
-  return (
-        <div className={'relative h-28 text-white flex flex-col'}>
-
-            <FlipCard
-                className='cursor-pointer lg:p-6 p-4 border rounded-xl bg-[#4f65f0] dark:bg-yellow-600 dark:border-gray-600'
-                frontContent={
-                    <div className='h-full'>
-                        <h2 className='font-[1000] text-3xl'>{siteConfig('HEO_SOCIAL_CARD_TITLE_1', null, CONFIG)}</h2>
-                        <h3 className='pt-2'>{siteConfig('HEO_SOCIAL_CARD_TITLE_2', null, CONFIG)}</h3>
-                        <div className='absolute left-0 top-0 w-full h-full' style={{ background: 'url(https://bu.dusays.com/2023/05/16/64633c4cd36a9.png) center center no-repeat' }}></div>
-                    </div>}
-                backContent={<Link href={siteConfig('HEO_SOCIAL_CARD_URL', null, CONFIG)}>
-                    <div className='font-[1000] text-xl h-full'>
-                        {siteConfig('HEO_SOCIAL_CARD_TITLE_3', null, CONFIG)}
-                    </div>
-                </Link>}
-            />
-
-        </div>
+    if (!JSON.parse(siteConfig('HEO_SOCIAL_CARD', null, CONFIG))) {
+      return <></>
+    }
+  
+    const frontSrcUrl = "https://cn.widgetstore.net/view/index.html?q=807102f6623d939101d5b1cd3ee9e8d6.880c3388663cd3eb0089a0665bafa3fb";
+    const backSrcUrl = "https://cn.widgetstore.net/view/index.html?q=b69f67c062af00d807c80a7605e48aa3.aefa8b0064f4e39100e8889d6142d1ae";
+    
+    return (
+      <div className={'relative h-64 text-white flex flex-col'}>
+          <FlipCard
+              className='cursor-pointer lg:p-6 p-4 border rounded-xl bg-[#4f65f0] dark:bg-yellow-600 dark:border-gray-600'
+              frontContent={
+                  <a href={frontSrcUrl} target="_blank" className="cursor-pointer">
+                      <div className='font-[1000] text-xl h-full'>
+                          <iframe src={frontSrcUrl} style={{ width: '100%', height: '100%' }}></iframe>
+                      </div>
+                  </a>}
+              backContent={
+                  <Link href={backSrcUrl}>
+                      <a>
+                          <div className='font-[1000] text-xl h-full'>
+                              <iframe src={backSrcUrl} style={{ width: '100%', height: '100%' }}></iframe>
+                          </div>
+                      </a>
+                  </Link>}
+          />
+      </div>
   )
-}
+  }

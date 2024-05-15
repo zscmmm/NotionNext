@@ -3,10 +3,10 @@ import { ArrowRightCircle, GlobeAlt } from '@/components/HeroIcons'
 import LazyImage from '@/components/LazyImage'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import CONFIG from '../config'
 import Announcement from './Announcement'
 import Card from './Card'
+import { useState } from 'react';
 
 /**
  * 社交信息卡
