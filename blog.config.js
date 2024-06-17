@@ -153,7 +153,10 @@ const BLOG = {
 
   // 自定义外部脚本，外部样式
   CUSTOM_EXTERNAL_JS: [''], // e.g. ['http://xx.com/script.js','http://xx.com/script.js']
-  CUSTOM_EXTERNAL_CSS: ['https://at.alicdn.com/t/c/font_4531781_71z9tojhqxe.css'], // e.g. ['http://xx.com/style.css','http://xx.com/style.css']
+  CUSTOM_EXTERNAL_CSS: [
+    'https://at.alicdn.com/t/c/font_4531781_71z9tojhqxe.css',
+    'https://at.alicdn.com/t/c/font_4531781_olzoidpfgfe.css'
+  ], // e.g. ['http://xx.com/style.css','http://xx.com/style.css']
 
   // 侧栏布局 是否反转(左变右,右变左) 已支持主题: hexo next medium fukasawa example
   LAYOUT_SIDEBAR_REVERSE:
