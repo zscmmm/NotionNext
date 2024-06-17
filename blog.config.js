@@ -48,7 +48,7 @@ const BLOG = {
 
   IMAGE_COMPRESS_WIDTH: process.env.NEXT_PUBLIC_IMAGE_COMPRESS_WIDTH || 500, // 图片压缩宽度默认值，作用于博客封面和文章内容 越小加载图片越快
   IMAGE_ZOOM_IN_WIDTH: process.env.NEXT_PUBLIC_IMAGE_ZOOM_IN_WIDTH || 600, // 文章图片点击放大后的画质宽度，不代表在网页中的实际展示宽度
-  RANDOM_IMAGE_URL: process.env.NEXT_PUBLIC_RANDOM_IMAGE_URL || 'https://source.unsplash.com/random/300x400/?blog,scenery,night,desert,sea', 
+  RANDOM_IMAGE_URL: process.env.NEXT_PUBLIC_RANDOM_IMAGE_URL ,
   // 个人补充: notion 是有封面的, ,如果封面有, 则会直接返回封面的图片, 且大小就是封面的大小,只不过会被 css 进行裁剪
   // 如果想要返回适合的图片大小, 需要有工具对原始图片进行压缩或处理成不同的大小(需要技术), 待完善
   // 随机图片API,如果未配置下面的关键字，主页封面，头像，文章封面图都会被替换为随机图片
