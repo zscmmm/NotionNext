@@ -154,7 +154,6 @@ const BLOG = {
   // 自定义外部脚本，外部样式
   CUSTOM_EXTERNAL_JS: [''], // e.g. ['http://xx.com/script.js','http://xx.com/script.js']
   CUSTOM_EXTERNAL_CSS: [
-    'https://at.alicdn.com/t/c/font_4531781_71z9tojhqxe.css',
     'https://at.alicdn.com/t/c/font_4531781_olzoidpfgfe.css'
   ], // e.g. ['http://xx.com/style.css','http://xx.com/style.css']
 
