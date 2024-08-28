@@ -1,0 +1,84 @@
+﻿### 由于好像会自动拉取(因此这个工作流无用)
+name: push mydockerhub2
+on:
+  push:
+    branches:
+      - my-branch
+  schedule:
+    - cron: '0 0 */15 * *' # 每 15 天构建一次
+  workflow_dispatch:
+## 参考: https://github.com/docker/build-push-action
+
+permissions:
+  contents: write
+env:
+  REGISTRY_URL: ccr.ccs.tencentyun.com
+  # docker hub 的用户名
+  OWNER: qqzsc
+  # 镜像名称(只能小写)
+  IMAGE_NAME: notion_next
+  # 腾讯云镜像仓库
+  TTX: ccr.ccs.tencentyun.com/zscgoweb/notion_next
+
+jobs:
+  push_dockerhub:
+    runs-on: ubuntu-latest
+
+    steps:
+      ##### Step 1: Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: my-branch
+
+      - name: show branch
+        run: |
+          echo ${{ github.ref }}
+          ls -al
+          echo '-------------------'
+          git branch
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      #####  Login to Docker Hub (发布镜像到Docker Hub)
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          # 需要再 docker hub 中去创建 token,然后填写到secrets中 (docker hub token)
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Container image
+        id: docker_build
+        uses: docker/build-push-action@v6
+        with:
+          # #利用 context 可以指定构建上下文，默认情况下，上下文是当前工作目录
+          platforms: linux/amd64
+          context: .
+          file: ./Dockerfile-update
+          push: true
+          # tags: ${{ steps.meta.outputs.tags }}
+          tags: qqzsc/notion_next:update
+          # 这个参数可以把镜像加载到本地(此时platform 只能传递了一个平台) , 这样后面我们就不用编译了
+          load: true
+          ## 只要最新的就好了, (因为 git 提交的此时太多了,减少存储空间)
+      - name: show images
+        run: |
+          docker images
+      ### 切换到腾讯云
+      - name: Login to Tencent Cloud
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY_URL }}
+          username: ${{ secrets.TX_USERNAME }}
+          password: ${{ secrets.TX_PASSWORD }}
+      - name: Sync Docker Image(tengxun云)
+        run: |
+          IMAGE="${{ env.OWNER }}/${{ env.IMAGE_NAME }}"
+          ALT_IMAGE="${{ env.TTX }}"
+          docker tag $IMAGE:update $ALT_IMAGE:update
+          docker push ${{ env.TTX }}:update

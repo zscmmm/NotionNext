@@ -52,8 +52,6 @@ const BLOG = {
   // 个人补充: notion 是有封面的, ,如果封面有, 则会直接返回封面的图片, 且大小就是封面的大小,只不过会被 css 进行裁剪
   // 如果想要返回适合的图片大小, 需要有工具对原始图片进行压缩或处理成不同的大小(需要技术), 待完善
   // 随机图片API,如果未配置下面的关键字，主页封面，头像，文章封面图都会被替换为随机图片
-  // https://source.unsplash.com/random/?blog,scenery,night,desert,sea // 这里先给一个, 这个没有设置大小, 不知道默认的会不会有大小的限制, 有限制的话,可以加速
-  // https://source.unsplash.com/random/600x400/?blog,scenery,night,desert,sea
   RANDOM_IMAGE_REPLACE_TEXT:
     process.env.NEXT_PUBLIC_RANDOM_IMAGE_NOT_REPLACE_TEXT ||
     'images.unsplash.com', // 触发替换图片的 url 关键字(多个支持用英文逗号分开)，只有图片地址中包含此关键字才会替换为上方随机图片url
