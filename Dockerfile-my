@@ -1,0 +1,30 @@
+# 使用 Node.js 官方镜像作为基础镜像
+FROM node:18-alpine3.18 AS build
+
+# 设置镜像源，安装依赖软件、设置时区，并安装应用依赖
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
+    apk --update --no-cache add git tzdata libc6-compat && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \
+    yarn config set registry https://registry.npm.taobao.org -g && \
+    git clone https://gitee.com/zscqsmy/NotionNext.git /app/NotionNext && \
+    cd /app/NotionNext && rm -rf .git && yarn install --frozen-lockfile && \
+    yarn build
+
+# 使用更小的镜像来运行应用程序
+FROM node:18-alpine3.18
+
+# 设置工作目录
+WORKDIR /app/NotionNext
+
+# 从构建阶段复制已编译的文件
+COPY --from=build /app/NotionNext /app/NotionNext
+
+# 设置环境变量
+ENV NODE_ENV production
+
+# 设置容器的启动命令
+CMD ["yarn", "start"]
+
+# 暴露应用程序运行的端口
+EXPOSE 3000
