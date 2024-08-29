@@ -14,9 +14,10 @@ WORKDIR /app/NotionNext
 COPY . .
 RUN apk add --no-cache libc6-compat && yarn install --frozen-lockfile && yarn build 
 
-# 移除开发依赖
+# 移除缓存
 RUN yarn install --production \
     && yarn cache clean && rm -rf .git 
+
 # 使用更小的镜像来运行应用程序
 FROM node:20-alpine3.19 
 
@@ -25,10 +26,7 @@ WORKDIR /app/NotionNext
 
 # 从构建阶段复制已编译的文件
 COPY --from=build /app/NotionNext /app/NotionNext
-
-# 设置环境变量
-# ENV NODE_ENV production
-
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 # 设置容器的启动命令
 CMD ["yarn", "start"]
 
